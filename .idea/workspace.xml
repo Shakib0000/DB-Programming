@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="db18e99d-5f9f-4170-bd19-59ac338c0d11" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/DB Programming Code Organization.iml" afterDir="false" />
