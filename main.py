@@ -1,11 +1,13 @@
 import mysql.connector
 
+
 def get_database_connection():
     connection = mysql.connector.connect(user='shakiba4',
                                          password='233255090',
                                          host='10.8.37.226',
                                          database='shakiba4_db')
     return connection
+
 
 def execute_statement(connection, statement):
     cursor = connection.cursor()
@@ -20,12 +22,32 @@ def execute_statement(connection, statement):
 
     return query_results
 
+
 def get_student_schedule(student_id):
     statement = "CALL getStudentSchedule(" + student_id + ");"
     return execute_statement(get_database_connection(), statement)
 
-student_id = input("Enter a student id: ")
-query_results = get_student_schedule(student_id)
+
+def get_teacher_schedule(teacher_id):
+    statement = "CALL getTeacherSchedule(" + teacher_id + ");"
+    return execute_statement(get_database_connection(), statement)
+
+
+person_type = input("Choose your login type [student/teacher/administrator]: ")
+person_type = person_type.lower()
+
+person_id = input("Enter your id: ")
+
+query_results = ""
+
+if person_type == "student":
+    query_results = get_student_schedule(person_id)
+elif person_type == "teacher":
+    query_results = get_teacher_schedule(person_id)
+elif person_type == "administrator":
+    print("yes")  # do nothing for now
+else:
+    print("ERROR WITH PERSON TYPE")
 
 for result in query_results:
     period = str(result[1])
