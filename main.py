@@ -27,6 +27,9 @@ def get_student_schedule(student_id):
     statement = "CALL getStudentSchedule(" + student_id + ");"
     return execute_statement(get_database_connection(), statement)
 
+def get_specific_class_grades(student_id):
+    statement = "CALL getSpecificClassGrade(" + student_id + ");"
+    return execute_statement(get_database_connection(), statement)
 
 def get_teacher_schedule(teacher_id):
     statement = "CALL getTeacherSchedule(" + teacher_id + ");"
@@ -41,7 +44,11 @@ person_id = input("Enter your id: ")
 query_results = ""
 
 if person_type == "student":
-    query_results = get_student_schedule(person_id)
+    action = input("Type in a number from the list below to choose an action:\n1. View schedule\n2. View grades for a specific class\n3.View overall grade")
+    if action == "1":
+        query_results = get_student_schedule(person_id)
+    elif action == "2":
+        query_results = get_specific_class_grades(person_id)
 elif person_type == "teacher":
     query_results = get_teacher_schedule(person_id)
 elif person_type == "administrator":
@@ -50,13 +57,14 @@ else:
     print("ERROR WITH PERSON TYPE")
 
 for result in query_results:
-    period = str(result[1])
-    course = result[2]
-    room = result[3]
-    teacher_first_name = result[4]
-    teacher_last_name = result[5]
-    print("Period: " + period)
-    print("Course: " + course)
-    print("Room: " + room)
-    print("Teacher: " + teacher_first_name + " " + teacher_last_name)
-    print()
+    if action == "1":
+        period = str(result[1])
+        course = result[2]
+        room = result[3]
+        teacher_first_name = result[4]
+        teacher_last_name = result[5]
+        print("Period: " + period)
+        print("Course: " + course)
+        print("Room: " + room)
+        print("Teacher: " + teacher_first_name + " " + teacher_last_name)
+        print()
